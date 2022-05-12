@@ -1,0 +1,66 @@
+﻿@model IEnumerable<PeopleAssignment.Models.Person>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form asp-action="Search" enctype="multipart/form-data" method="post">
+
+    <div class="form-group">
+        <input name="search" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+</form>
+
+
+
+
+    <partial name="_PersionPartial" model="@Model" />
+
+
+
+
+
+
+<div id="target"></div>
+<script src="~/infrastructure/scripts/jQuery.js"></script>
+
+<script>
+        $("#btnAll").click(() => {
+                   $.ajax({
+            url: "@Url.Action("All","People")",
+            type: 'get',
+            dataType:"HTML",
+            data:null,
+            success: function (data) {
+                $('#target').html(data);
+            }
+        });
+        });
+        $("#btnInfo").click(() => {
+                   $.ajax({
+            url: "@Url.Action("info","People")",
+            type: 'get',
+            dataType:"HTML",
+            data: { id: 3 },
+            success: function (data) {
+                $('#target').html(data);
+            }
+        });
+        });
+
+    </script>
