@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PeopleAssignment.Models
 {
-  public  interface IPeopleRepo
+    public interface IPeopleRepo
     {
         List<Person> GetPeoples();
 
@@ -14,6 +14,8 @@ namespace PeopleAssignment.Models
 
         Person CreatePerson(Person person);
         bool DeletePerson(Person person);
+
+        void UpdatePerson(Person person);
 
 
 

@@ -84,21 +84,29 @@ namespace assigment.Controllers
         // GET: People/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+
+            return View(_peopleService.FindPerson(id));
         }
 
         // POST: People/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Person model)
         {
             try
             {
-                // TODO: Add update logic here
 
+                Person person = _peopleService.FindPerson(id);
+                if (person != null)
+                {
+                    person.City = model.City;
+                    person.PersonName = model.PersonName;
+                    person.PersonPhoneNumber = model.PersonPhoneNumber;
+                }
+                _peopleService.UpdatePerson(person);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }

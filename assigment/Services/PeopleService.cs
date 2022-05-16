@@ -10,7 +10,7 @@ namespace PeopleAssignment.Models
         private IPeopleRepo _PeopleRepo;
         public PeopleService(IPeopleRepo PeopleRepo)
         {
-           _PeopleRepo = PeopleRepo;
+            this._PeopleRepo = PeopleRepo;
         }
 
         public void CreatePerson(Person person)
@@ -26,7 +26,8 @@ namespace PeopleAssignment.Models
 
         public Person FindPerson(int id)
         {
-            return _PeopleRepo.FindPerson(id);        }
+            return _PeopleRepo.FindPerson(id);
+        }
 
         public List<Person> GetPeoples()
         {
@@ -36,6 +37,11 @@ namespace PeopleAssignment.Models
         public Person SearchPerson(string search)
         {
             return _PeopleRepo.SearchPerson(search);
+        }
+
+        public void UpdatePerson(Person person)
+        {
+            _PeopleRepo.UpdatePerson(person);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace PeopleAssignment.Models
             };
         private static int idCounter = 0;
 
-   
+
         public Person CreatePerson(Person person)
         {
             Person p = new Person()
@@ -64,6 +64,11 @@ namespace PeopleAssignment.Models
                 }
             }
             return null;
+        }
+
+        public void UpdatePerson(Person person)
+        {
+            throw new NotImplementedException();
         }
     }
 }

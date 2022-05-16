@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace p3.Models
 {
-    public class DatabasePeoplesRepo: IPeopleRepo
+    public class DatabasePeoplesRepo : IPeopleRepo
     {
         private ExDBContext _DBContext;
         public DatabasePeoplesRepo(ExDBContext myDBContext)
@@ -57,8 +57,13 @@ namespace p3.Models
 
         public Person SearchPerson(string search)
         {
-            return _DBContext.Peoples.FirstOrDefault(x => x.City.ToLower().Contains(search.ToLower()) ||x.PersonName.Contains(search.ToLower()));
+            return _DBContext.Peoples.FirstOrDefault(x => x.City.ToLower().Contains(search.ToLower()) || x.PersonName.Contains(search.ToLower()));
 
+        }
+        public void UpdatePerson(Person person)
+        {
+            _DBContext.Peoples.Update(person);
+            _DBContext.SaveChanges();
         }
     }
 }
