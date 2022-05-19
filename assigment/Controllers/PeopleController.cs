@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PeopleAssignment.Models;
+using assignment.Models;
 
 namespace assigment.Controllers
 {
@@ -46,6 +46,9 @@ namespace assigment.Controllers
 
         public ActionResult Search(string search)
         {
+            if (string.IsNullOrEmpty(search))
+                return RedirectToAction(nameof(Index));
+
             var Person = _peopleService.SearchPerson(search);
             if (Person == null)
             {

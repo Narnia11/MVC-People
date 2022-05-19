@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PeopleAssignment.Models;
+using assignment.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace p3.Models
+namespace assignment.Models
 {
     public class DatabasePeoplesRepo : IPeopleRepo
     {

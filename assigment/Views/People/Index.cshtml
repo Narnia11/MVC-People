@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PeopleAssignment.Models.Person>
+﻿@model IEnumerable<assignment.Models.Person>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
@@ -12,14 +12,14 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<form asp-action="Search" enctype="multipart/form-data" method="post">
+<form class="col-md-6" asp-action="Search" enctype="multipart/form-data" method="post">
 
     <div class="form-group">
         <input name="search" class="form-control" />
     </div>
 
     <div class="form-group">
-        <input type="submit" value="Search" class="btn btn-primary" />
+        <input type="submit" value="Search by Name" class="btn btn-primary" />
     </div>
 </form>
 

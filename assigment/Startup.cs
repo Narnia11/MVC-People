@@ -8,21 +8,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using p3.Models;
-using PeopleAssignment.Models;
+using assignment.Models;
 
 namespace assigment
 {
     public class Startup
+
     {
+        public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
@@ -36,31 +35,30 @@ namespace assigment
             /*End for sql connection*/
 
             /*add dependency injection*/
-            services.AddScoped<IPeopleRepo, DatabasePeoplesRepo>();
+            services.AddScoped<IPeopleRepo, assignment.Models.DatabasePeoplesRepo>();
             services.AddScoped<IPeopleService, PeopleService>();
+            services.AddScoped<ICityRepo, DatabaseCityRepo>();
+            services.AddScoped<ICityService, CityService>();
+            services.AddScoped<ICountryRepo, DatabaseCountryRepo>();
+            services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ExDBContext, ExDBContext>();
             /*End add dependency injection*/
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ExDBContext db)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-           // db.Database.EnsureCreated(); //intsted of add and update migrations
 
-            app.UseStaticFiles();
+            app.UseStaticFiles();//to able project to load local files
 
             app.UseSession();
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

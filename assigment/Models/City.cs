@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace assignment.Models
 {
-    public class Person
+    public class City
     {
         [Key]
         public int Id { get; set; }
-        public string PersonName { get; set; }
-        public string PersonPhoneNumber { get; set; }
-        public string City { get; set; }
+        public string Name { get; set; }
+
+        public Country Country { get; set; }
+        public ICollection<Person> People { get; set; }
+
     }
 }
