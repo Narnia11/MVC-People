@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace assignment.Models
 {
-    public class DatabasePeoplesRepo : IPeopleRepo
+    public class DatabasePeopleRepo : IPeopleRepo
     {
         private ExDBContext _DBContext;
-        public DatabasePeoplesRepo(ExDBContext myDBContext)
+        public DatabasePeopleRepo(ExDBContext myDBContext)
         {
             _DBContext = myDBContext;
         }
@@ -24,7 +24,7 @@ namespace assignment.Models
                 PersonPhoneNumber = person.PersonPhoneNumber,
                 City = person.City,
             };
-            _DBContext.Peoples.Add(p);
+            _DBContext.People.Add(p);
             _DBContext.SaveChanges();
             return person;
         }
@@ -33,10 +33,10 @@ namespace assignment.Models
         {
 
 
-            var result = _DBContext.Peoples.FirstOrDefault(x => x.Id == person.Id);
+            var result = _DBContext.People.FirstOrDefault(x => x.Id == person.Id);
             if (result != null)
             {
-                _DBContext.Peoples.Remove(result);
+                _DBContext.People.Remove(result);
                 _DBContext.SaveChanges();
                 return true;
             }
@@ -45,24 +45,24 @@ namespace assignment.Models
 
         public Person FindPerson(int id)
         {
-            return _DBContext.Peoples.FirstOrDefault(x => x.Id == id);
+            return _DBContext.People.Include(i => i.PersonLanguages).FirstOrDefault(x => x.Id == id);
 
         }
 
         public List<Person> GetPeoples()
         {
-            return _DBContext.Peoples.ToList();
+            return _DBContext.People.Include(i => i.PersonLanguages).ToList();
 
         }
 
         public Person SearchPerson(string search)
         {
-            return _DBContext.Peoples.FirstOrDefault(x => x.City.ToLower().Contains(search.ToLower()) || x.PersonName.Contains(search.ToLower()));
+            return _DBContext.People.FirstOrDefault(x => x.City.Name.ToLower().Contains(search.ToLower()) || x.PersonName.Contains(search.ToLower()));
 
         }
         public void UpdatePerson(Person person)
         {
-            _DBContext.Peoples.Update(person);
+            _DBContext.People.Update(person);
             _DBContext.SaveChanges();
         }
     }

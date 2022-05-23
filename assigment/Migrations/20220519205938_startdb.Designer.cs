@@ -10,8 +10,8 @@ using assignment.Models;
 namespace assigment.Migrations
 {
     [DbContext(typeof(ExDBContext))]
-    [Migration("20220519202116_startmigration")]
-    partial class startmigration
+    [Migration("20220519205938_startdb")]
+    partial class startdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,36 @@ namespace assigment.Migrations
                 .HasAnnotation("ProductVersion", "3.1.24")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("PeopleAssignment.Models.Language", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("LanguageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages");
+                });
+
+            modelBuilder.Entity("PeopleAssignment.Models.PersonLanguage", b =>
+                {
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PersonId", "LanguageId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("PersonLanguages");
+                });
 
             modelBuilder.Entity("assignment.Models.City", b =>
                 {
@@ -63,9 +93,6 @@ namespace assigment.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("CityId")
                         .HasColumnType("int");
 
@@ -79,7 +106,22 @@ namespace assigment.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Peoples");
+                    b.ToTable("People");
+                });
+
+            modelBuilder.Entity("PeopleAssignment.Models.PersonLanguage", b =>
+                {
+                    b.HasOne("PeopleAssignment.Models.Language", "Language")
+                        .WithMany("PersonLanguages")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("assignment.Models.Person", "Person")
+                        .WithMany("PersonLanguages")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("assignment.Models.City", b =>
@@ -91,7 +133,7 @@ namespace assigment.Migrations
 
             modelBuilder.Entity("assignment.Models.Person", b =>
                 {
-                    b.HasOne("assignment.Models.City", null)
+                    b.HasOne("assignment.Models.City", "City")
                         .WithMany("People")
                         .HasForeignKey("CityId");
                 });

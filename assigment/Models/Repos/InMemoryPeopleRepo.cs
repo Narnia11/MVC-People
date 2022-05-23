@@ -9,9 +9,9 @@ namespace assignment.Models
     {
         private static List<Person> _people = new List<Person>()
             {
-                new Person{Id=1,PersonName="Amir",City="tehran" },
-                new Person{Id=2,PersonName="Narges",City="shahrood" },
-                new Person{Id=3,PersonName="Ali",City="Sari" },
+                new Person{Id=1,PersonName="Amir",City=new City{Name="Tehran" } },
+                new Person{Id=2,PersonName="Narges",City=new City{Name="Tehran"  } },
+                new Person{Id=3,PersonName="Ali",City=new City{Name="Tehran"  } },
             };
         private static int idCounter = 0;
 
@@ -58,14 +58,13 @@ namespace assignment.Models
         {
             foreach (Person person in _people)
             {
-                if (person.PersonName.ToLower().Contains(search.ToLower()) || person.City.ToLower().Contains(search.ToLower()))
+                if (person.PersonName.ToLower().Contains(search.ToLower()) || person.City.Name.ToLower().Contains(search.ToLower()))
                 {
                     return person;
                 }
             }
             return null;
         }
-
         public void UpdatePerson(Person person)
         {
             throw new NotImplementedException();

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using assignment.Models;
+using assignment.Models;
 
 namespace assigment
 {
@@ -35,12 +36,16 @@ namespace assigment
             /*End for sql connection*/
 
             /*add dependency injection*/
-            services.AddScoped<IPeopleRepo, assignment.Models.DatabasePeoplesRepo>();
+            services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();
             services.AddScoped<IPeopleService, PeopleService>();
             services.AddScoped<ICityRepo, DatabaseCityRepo>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICountryRepo, DatabaseCountryRepo>();
             services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<ILanguageRepo, DatabaseLanguageRepo>();
+            services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<IPersonLanguageRepo, DatabasePersonLanguageRepo>();
+            services.AddScoped<IPersonLanguageService, PersonLanguageService>();
             services.AddScoped<ExDBContext, ExDBContext>();
             /*End add dependency injection*/
 

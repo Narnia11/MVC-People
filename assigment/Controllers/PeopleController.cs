@@ -5,16 +5,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using assignment.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Host;
+using assignment.Models;
 
 namespace assigment.Controllers
 {
     public class PeopleController : Controller
     {
         private IPeopleService _peopleService;
+        private assignment.Models.ILanguageService _languageService;
+        private IPersonLanguageService _PersonlanguageService;
 
-        public PeopleController(IPeopleService peopleService)
+        public PeopleController(IPeopleService peopleService, assignment.Models.ILanguageService languageService, IPersonLanguageService PersonlanguageService)
         {
             _peopleService = peopleService;
+            _languageService = languageService;
+            _PersonlanguageService = PersonlanguageService;
         }
         public ActionResult Index()
         {
@@ -90,6 +97,50 @@ namespace assigment.Controllers
 
             return View(_peopleService.FindPerson(id));
         }
+
+        public ActionResult AddLanguageToPerson(int personId)
+        {
+
+            AddPersonLanguageViewModel model = new AddPersonLanguageViewModel()
+            {
+                PersonId = personId,
+                Languages = _languageService.GetLanguages()
+
+
+            };
+
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddLanguageToPerson(PersonLanguage personLanguage)
+        {
+            try
+            {
+
+
+                _PersonlanguageService.CreatePersonLanguage(new PersonLanguage() { LanguageId = personLanguage.LanguageId, PersonId = personLanguage.PersonId });
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
+        }
+
+        public async Task<IActionResult> ShowPersonLanguages(int personId)
+        {
+            List<Language> languages = new List<Language>();
+            var personLanguages = _PersonlanguageService.GetPersonLanguages(personId);
+            foreach (var item in personLanguages)
+            {
+                Language lng = _languageService.FindLanguage(item.LanguageId);
+                languages.Add(lng);
+
+            }
+            return View(personLanguages.Select(x => x.Language).ToList());
+        }
+
 
         // POST: People/Edit/5
         [HttpPost]
