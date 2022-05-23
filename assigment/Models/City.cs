@@ -13,7 +13,7 @@ namespace assignment.Models
         public string Name { get; set; }
 
         public Country Country { get; set; }
-        public ICollection<Person> People { get; set; }
+        public List<Person> People { get; set; }
 
     }
 }
