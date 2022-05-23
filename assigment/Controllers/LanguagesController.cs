@@ -6,7 +6,7 @@ using assignment.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using PeopleAssignment.Models;
+using assignment.Models;
 
 namespace assigment.Controllers
 {

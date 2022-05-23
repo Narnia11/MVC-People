@@ -7,17 +7,17 @@ using Microsoft.AspNetCore.Mvc;
 using assignment.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Host;
-using PeopleAssignment.Models;
+using assignment.Models;
 
 namespace assigment.Controllers
 {
     public class PeopleController : Controller
     {
         private IPeopleService _peopleService;
-        private PeopleAssignment.Models.ILanguageService _languageService;
+        private assignment.Models.ILanguageService _languageService;
         private IPersonLanguageService _PersonlanguageService;
 
-        public PeopleController(IPeopleService peopleService, PeopleAssignment.Models.ILanguageService languageService, IPersonLanguageService PersonlanguageService)
+        public PeopleController(IPeopleService peopleService, assignment.Models.ILanguageService languageService, IPersonLanguageService PersonlanguageService)
         {
             _peopleService = peopleService;
             _languageService = languageService;

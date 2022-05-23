@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PeopleAssignment.Models
+namespace assignment.Models
 {
     public class PersonLanguage
     {
