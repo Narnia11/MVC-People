@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PeopleAssignment.Models;
 
-namespace p3.Controllers
+namespace assigment.Controllers
 {
     public class LanguagesController : Controller
     {
