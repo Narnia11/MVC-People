@@ -17,7 +17,5 @@ namespace assignment.Models
 
         void UpdatePerson(Person person);
 
-
-
     }
 }

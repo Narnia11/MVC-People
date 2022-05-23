@@ -1,4 +1,4 @@
-﻿using assignment.Models;
+﻿using PeopleAssignment.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

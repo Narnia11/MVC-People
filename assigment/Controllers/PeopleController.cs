@@ -7,17 +7,17 @@ using Microsoft.AspNetCore.Mvc;
 using assignment.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Host;
-using assignment.Models;
+using PeopleAssignment.Models;
 
 namespace assigment.Controllers
 {
     public class PeopleController : Controller
     {
         private IPeopleService _peopleService;
-        private assignment.Models.ILanguageService _languageService;
+        private PeopleAssignment.Models.ILanguageService _languageService;
         private IPersonLanguageService _PersonlanguageService;
 
-        public PeopleController(IPeopleService peopleService, assignment.Models.ILanguageService languageService, IPersonLanguageService PersonlanguageService)
+        public PeopleController(IPeopleService peopleService, PeopleAssignment.Models.ILanguageService languageService, IPersonLanguageService PersonlanguageService)
         {
             _peopleService = peopleService;
             _languageService = languageService;
@@ -53,7 +53,7 @@ namespace assigment.Controllers
 
         public ActionResult Search(string search)
         {
-            if (string.IsNullOrEmpty(search))
+            if(string.IsNullOrEmpty(search))
                 return RedirectToAction(nameof(Index));
 
             var Person = _peopleService.SearchPerson(search);
@@ -113,13 +113,13 @@ namespace assigment.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddLanguageToPerson(PersonLanguage personLanguage)
+        public ActionResult AddLanguageToPerson( PersonLanguage personLanguage)
         {
             try
             {
 
 
-                _PersonlanguageService.CreatePersonLanguage(new PersonLanguage() { LanguageId = personLanguage.LanguageId, PersonId = personLanguage.PersonId });
+                _PersonlanguageService.CreatePersonLanguage(new PersonLanguage() { LanguageId= personLanguage.LanguageId,PersonId=personLanguage.PersonId});
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)
@@ -131,8 +131,8 @@ namespace assigment.Controllers
         public async Task<IActionResult> ShowPersonLanguages(int personId)
         {
             List<Language> languages = new List<Language>();
-            var personLanguages = _PersonlanguageService.GetPersonLanguages(personId);
-            foreach (var item in personLanguages)
+         var personLanguages=   _PersonlanguageService.GetPersonLanguages(personId);
+            foreach(var item in personLanguages)
             {
                 Language lng = _languageService.FindLanguage(item.LanguageId);
                 languages.Add(lng);

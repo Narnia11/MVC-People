@@ -2,30 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using assignment.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using assignment.Models;
-using assignment.Models;
+using PeopleAssignment.Models;
 
-namespace assignment.Controllers
+namespace p3.Controllers
 {
-    public class CountriesController : Controller
+    public class LanguagesController : Controller
     {
         private readonly ExDBContext _context;
 
-        public CountriesController(ExDBContext context)
+        public LanguagesController(ExDBContext context)
         {
             _context = context;
         }
 
-        // GET: Countries
+        // GET: Languages
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Countries.ToListAsync());
+            return View(await _context.Languages.ToListAsync());
         }
 
-        // GET: Countries/Details/5
+        // GET: Languages/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace assignment.Controllers
                 return NotFound();
             }
 
-            var country = await _context.Countries
+            var language = await _context.Languages
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (country == null)
+            if (language == null)
             {
                 return NotFound();
             }
 
-            return View(country);
+            return View(language);
         }
 
-        // GET: Countries/Create
+        // GET: Languages/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Countries/Create
+        // POST: Languages/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Country country)
+        public async Task<IActionResult> Create([Bind("Id,LanguageName")] Language language)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(country);
+                _context.Add(language);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(country);
+            return View(language);
         }
 
-        // GET: Countries/Edit/5
+        // GET: Languages/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace assignment.Controllers
                 return NotFound();
             }
 
-            var country = await _context.Countries.FindAsync(id);
-            if (country == null)
+            var language = await _context.Languages.FindAsync(id);
+            if (language == null)
             {
                 return NotFound();
             }
-            return View(country);
+            return View(language);
         }
 
-        // POST: Countries/Edit/5
+        // POST: Languages/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Country country)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,LanguageName")] Language language)
         {
-            if (id != country.Id)
+            if (id != language.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace assignment.Controllers
             {
                 try
                 {
-                    _context.Update(country);
+                    _context.Update(language);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CountryExists(country.Id))
+                    if (!LanguageExists(language.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace assignment.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(country);
+            return View(language);
         }
 
-        // GET: Countries/Delete/5
+        // GET: Languages/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace assignment.Controllers
                 return NotFound();
             }
 
-            var country = await _context.Countries
+            var language = await _context.Languages
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (country == null)
+            if (language == null)
             {
                 return NotFound();
             }
 
-            return View(country);
+            return View(language);
         }
 
-        // POST: Countries/Delete/5
+        // POST: Languages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var country = await _context.Countries.FindAsync(id);
-            _context.Countries.Remove(country);
+            var language = await _context.Languages.FindAsync(id);
+            _context.Languages.Remove(language);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CountryExists(int id)
+        private bool LanguageExists(int id)
         {
-            return _context.Countries.Any(e => e.Id == id);
+            return _context.Languages.Any(e => e.Id == id);
         }
     }
 }

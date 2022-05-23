@@ -1,4 +1,4 @@
-﻿using assignment.Models;
+﻿using PeopleAssignment.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace assignment.Models
     public class PersonLanguageService : IPersonLanguageService
     {
         private IPersonLanguageRepo _PersonLanguageRepo;
-        private assignment.Models.ILanguageService _languageService;
+        private PeopleAssignment.Models.ILanguageService _languageService;
 
         public PersonLanguageService(IPersonLanguageRepo PersonLanguageRepo, ILanguageService languageService)
         {
