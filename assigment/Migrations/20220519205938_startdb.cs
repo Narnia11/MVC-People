@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace assigment.Migrations
+namespace assignment.Migrations
 {
     public partial class startdb : Migration
     {

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using assignment.Models;
 
-namespace assigment.Migrations
+namespace assignment.Migrations
 {
     [DbContext(typeof(ExDBContext))]
     [Migration("20220519205938_startdb")]

@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using assignment.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Host;
-using assignment.Models;
 
-namespace assigment.Controllers
+namespace assignment.Controllers
 {
     public class PeopleController : Controller
     {

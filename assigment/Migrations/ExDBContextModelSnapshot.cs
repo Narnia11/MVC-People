@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using assignment.Models;
 
-namespace assigment.Migrations
+namespace assignment.Migrations
 {
     [DbContext(typeof(ExDBContext))]
     partial class ExDBContextModelSnapshot : ModelSnapshot
@@ -19,7 +19,7 @@ namespace assigment.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("PeopleAssignment.Models.Language", b =>
+            modelBuilder.Entity("assignment.Models.Language", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,7 +34,7 @@ namespace assigment.Migrations
                     b.ToTable("Languages");
                 });
 
-            modelBuilder.Entity("PeopleAssignment.Models.PersonLanguage", b =>
+            modelBuilder.Entity("assignment.Models.PersonLanguage", b =>
                 {
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
@@ -107,9 +107,9 @@ namespace assigment.Migrations
                     b.ToTable("People");
                 });
 
-            modelBuilder.Entity("PeopleAssignment.Models.PersonLanguage", b =>
+            modelBuilder.Entity("assignment.Models.PersonLanguage", b =>
                 {
-                    b.HasOne("PeopleAssignment.Models.Language", "Language")
+                    b.HasOne("assignment.Models.Language", "Language")
                         .WithMany("PersonLanguages")
                         .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
