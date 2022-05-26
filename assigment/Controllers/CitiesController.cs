@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using assignment.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace assignment.Controllers
 {
+    [Authorize]
+
     public class CitiesController : Controller
     {
         private readonly ExDBContext _context;

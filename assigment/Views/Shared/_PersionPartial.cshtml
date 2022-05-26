@@ -26,7 +26,7 @@
                     @Html.DisplayFor(modelItem => item.PersonName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.City)
+                    @Html.DisplayFor(modelItem => item.City.Name)
                 </td>
                 <td>
                     <a asp-controller="People" asp-action="info" asp-route-id="@item.Id"> info</a>  |  <a asp-controller="People" asp-action="Edit" asp-route-id="@item.Id">edit</a>|<a asp-controller="People" asp-action="Delete" asp-route-id="@item.Id">Delete</a>

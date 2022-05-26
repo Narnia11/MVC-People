@@ -10,6 +10,7 @@ namespace assignment.Models
         public int Id { get; set; }
         public string PersonName { get; set; }
         public string PersonPhoneNumber { get; set; }
-        public string City { get; set; }
+        public int CityId { get; set; }
+
     }
 }

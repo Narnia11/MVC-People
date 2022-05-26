@@ -45,13 +45,13 @@ namespace assignment.Models
 
         public Person FindPerson(int id)
         {
-            return _DBContext.People.Include(i => i.PersonLanguages).FirstOrDefault(x => x.Id == id);
+            return _DBContext.People.Include(x => x.City).Include(i => i.PersonLanguages).FirstOrDefault(x => x.Id == id);
 
         }
 
         public List<Person> GetPeoples()
         {
-            return _DBContext.People.Include(i => i.PersonLanguages).ToList();
+            return _DBContext.People.Include(x => x.City).Include(i => i.PersonLanguages).ToList();
 
         }
 

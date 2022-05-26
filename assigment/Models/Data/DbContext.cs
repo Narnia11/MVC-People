@@ -6,11 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-
+using Model.Model;
 
 namespace assignment.Models
 {
-    public class ExDBContext : DbContext
+    public class ExDBContext : IdentityDbContext<ApplicationUser>
     {
         public ExDBContext(DbContextOptions<ExDBContext> options)
        : base(options)

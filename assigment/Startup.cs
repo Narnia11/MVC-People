@@ -9,8 +9,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using assignment.Models;
+using Model.Model;
+using Microsoft.AspNetCore.Identity;
 
-namespace assignment
+namespace assigment
 {
     public class Startup
 
@@ -31,11 +33,12 @@ namespace assignment
             });
             /* for sql connection*/
             services.AddDbContext<ExDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlServerConnection")));
-
             /*End for sql connection*/
 
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ExDBContext>().AddDefaultTokenProviders();
+
             /*add dependency injection*/
-            services.AddScoped<IPeopleRepo,DatabasePeopleRepo>();
+            services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();
             services.AddScoped<IPeopleService, PeopleService>();
             services.AddScoped<ICityRepo, DatabaseCityRepo>();
             services.AddScoped<ICityService, CityService>();
@@ -59,10 +62,15 @@ namespace assignment
                 app.UseDeveloperExceptionPage();
             }
 
+
+
             app.UseStaticFiles();//to able project to load local files
 
             app.UseSession();
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

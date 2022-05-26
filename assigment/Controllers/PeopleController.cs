@@ -7,20 +7,25 @@ using Microsoft.AspNetCore.Mvc;
 using assignment.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Host;
+using Microsoft.AspNetCore.Authorization;
 
-namespace assignment.Controllers
+namespace assigment.Controllers
 {
+    [Authorize]
+
     public class PeopleController : Controller
     {
         private IPeopleService _peopleService;
         private assignment.Models.ILanguageService _languageService;
         private IPersonLanguageService _PersonlanguageService;
+        private ICityService _cityService;
 
-        public PeopleController(IPeopleService peopleService, assignment.Models.ILanguageService languageService, IPersonLanguageService PersonlanguageService)
+        public PeopleController(IPeopleService peopleService, assignment.Models.ILanguageService languageService, IPersonLanguageService PersonlanguageService, ICityService cityService)
         {
             _peopleService = peopleService;
             _languageService = languageService;
             _PersonlanguageService = PersonlanguageService;
+            _cityService = cityService;
         }
         public ActionResult Index()
         {
@@ -52,7 +57,7 @@ namespace assignment.Controllers
 
         public ActionResult Search(string search)
         {
-            if(string.IsNullOrEmpty(search))
+            if (string.IsNullOrEmpty(search))
                 return RedirectToAction(nameof(Index));
 
             var Person = _peopleService.SearchPerson(search);
@@ -62,16 +67,24 @@ namespace assignment.Controllers
             }
             return View(Person);
         }
-
+        [HttpGet]
         public ActionResult Create()
         {
+            var cities = _cityService.GetCities();
+            ViewData["cities"] = new SelectList(cities.Select(a =>
+                new SelectListItem
+                {
+                    Value = a.Id.ToString(),
+                    Text = a.Name
+                }).ToList(), "Value", "Text");
+
             return View();
         }
 
         // POST: People/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Person person)
+        public ActionResult Create(CreatePersonViewModel model)
         {
             try
             {
@@ -79,6 +92,8 @@ namespace assignment.Controllers
                 {
                     return RedirectToAction(nameof(Index));
                 }
+                var city = _cityService.FindCity(model.CityId);
+                Person person = new Person() { City = city, PersonName = model.PersonName, PersonPhoneNumber = model.PersonPhoneNumber };
                 _peopleService.CreatePerson(person);
                 return RedirectToAction(nameof(Index));
 
@@ -112,26 +127,26 @@ namespace assignment.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddLanguageToPerson( PersonLanguage personLanguage)
+        public ActionResult AddLanguageToPerson(PersonLanguage personLanguage)
         {
             try
             {
 
 
-                _PersonlanguageService.CreatePersonLanguage(new PersonLanguage() { LanguageId= personLanguage.LanguageId,PersonId=personLanguage.PersonId});
+                _PersonlanguageService.CreatePersonLanguage(new PersonLanguage() { LanguageId = personLanguage.LanguageId, PersonId = personLanguage.PersonId });
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception e)
+            catch
             {
                 return View();
             }
         }
 
-        public async Task<IActionResult> ShowPersonLanguages(int personId)
+        public ActionResult ShowPersonLanguages(int personId)
         {
             List<Language> languages = new List<Language>();
-         var personLanguages=   _PersonlanguageService.GetPersonLanguages(personId);
-            foreach(var item in personLanguages)
+            var personLanguages = _PersonlanguageService.GetPersonLanguages(personId);
+            foreach (var item in personLanguages)
             {
                 Language lng = _languageService.FindLanguage(item.LanguageId);
                 languages.Add(lng);
@@ -159,7 +174,7 @@ namespace assignment.Controllers
                 _peopleService.UpdatePerson(person);
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception e)
+            catch
             {
                 return View();
             }
